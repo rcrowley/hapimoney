@@ -14,9 +14,11 @@ urlpatterns = patterns("",
     url(r"^about/?$", "hapimoney.base.views.about", name="about"),
 
     # Login and logout.
-    url(r"^login/?$", "django.contrib.auth.views.login", name="login"),
-    url(r"^logout/?$", "django.contrib.auth.views.logout", name="logout"),
-    # TODO Sign up.
+    url(r"^login/?$", "django.contrib.auth.views.login",
+        {"template_name": "login.html"}, name="login"),
+    url(r"^logout/?$", "django.contrib.auth.views.logout",
+        {"template_name": "logout.html"}, name="logout"),
+    url(r"^signup/?$", "hapimoney.base.views.signup", name="signup"),
     # TODO Password reset and change.
 
     # The actual HapiMoney application.

@@ -87,3 +87,5 @@ INSTALLED_APPS = (
 LOGIN_REDIRECT_URL = "/basic"
 
 INTERNAL_IPS = ("127.0.0.1",)
+
+TEMPLATE_CONTEXT_PROCESSORS = ("django.core.context_processors.auth",)

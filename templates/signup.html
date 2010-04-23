@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{% block title %}Signup{% endblock %}</h1>
+{% if form.errors %}
+<p>TODO</p>
+{% endif %}
+<form method="post" action="{% url signup %}">
+<table>
+{{ form.as_table }}
+</table>
+<ul>
+    <li><input type="submit" value="Signup" /></li>
+</ul>
+</form>
+{% endblock %}

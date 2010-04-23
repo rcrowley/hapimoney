@@ -1,15 +1,41 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-#from django.db.models import DoesNotExist
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
+from django.template import RequestContext
+from hashlib import sha1
 import forms, models
 
 # Static pages.
 def index(request):
-    return render_to_response("index.html")
+    return render_to_response("index.html", RequestContext(request))
 def process(request):
-    return render_to_response("process.html")
+    return render_to_response("process.html", RequestContext(request))
 def about(request):
-    return render_to_response("about.html")
+    return render_to_response("about.html", RequestContext(request))
+
+def signup(request):
+    if "POST" == request.method:
+        form = forms.SignupForm(request.POST)
+        if form.is_valid():
+            User.objects.create_user(
+                form.cleaned_data["username"],
+                form.cleaned_data["email"],
+                form.cleaned_data["password1"]
+            )
+            user = authenticate(
+                username=form.cleaned_data["username"],
+                password=form.cleaned_data["password1"]
+            )
+            login(request, user)
+            return HttpResponseRedirect(reverse("basic"))
+    else:
+        form = forms.SignupForm()
+    return render_to_response("signup.html", RequestContext(request, {
+        "form": form,
+    }))
 
 @login_required
 def basic(request):
@@ -24,14 +50,16 @@ def basic(request):
             for k in ("age", "retire", "yearly_salary"):
                 setattr(finances, k, form.cleaned_data[k])
             finances.save()
-            return render_to_response("basic_analysis.html", {
-                "form": form,
-            })
+            return render_to_response("basic_analysis.html",
+                RequestContext(request, {
+                    "form": form,
+                })
+            )
     else:
         form = forms.BasicForm()
-    return render_to_response("basic.html", {
+    return render_to_response("basic.html", RequestContext(request, {
         "form": form,
-    })
+    }))
 
 @login_required
 def budget(request):
@@ -55,17 +83,19 @@ def budget(request):
             expenses.save()
             request.user.finances.expenses = expenses
             request.user.finances.save()
-            return render_to_response("budget_analysis.html", {
-                "income_form": income_form,
-                "expenses_form": expenses_form,
-            })
+            return render_to_response("budget_analysis.html",
+                RequestContext(request, {
+                    "income_form": income_form,
+                    "expenses_form": expenses_form,
+                })
+            )
     else:
         income_form = forms.IncomeForm()
         expenses_form = forms.ExpensesForm()
-    return render_to_response("budget.html", {
+    return render_to_response("budget.html", RequestContext(request, {
         "income_form": income_form,
         "expenses_form": expenses_form,
-    })
+    }))
 
 @login_required
 def balancesheet(request):
@@ -90,17 +120,19 @@ def balancesheet(request):
             liabilities.save()
             request.user.finances.liabilities = liabilities
             request.user.finances.save()
-            return render_to_response("balancesheet_analysis.html", {
-                "assets_form": assets_form,
-                "liabilities_form": liabilities_form,
-            })
+            return render_to_response("balancesheet_analysis.html",
+                RequestContext(request, {
+                    "assets_form": assets_form,
+                    "liabilities_form": liabilities_form,
+                })
+            )
     else:
         assets_form = forms.AssetsForm()
         liabilities_form = forms.LiabilitiesForm()
-    return render_to_response("balancesheet.html", {
+    return render_to_response("balancesheet.html", RequestContext(request, {
         "assets_form": assets_form,
         "liabilities_form": liabilities_form,
-    })
+    }))
 
 @login_required
 def risk(request):
@@ -108,16 +140,18 @@ def risk(request):
         form = forms.RiskForm(request.POST)
         if form.is_valid():
             # TODO Persist to database?
-            return render_to_response("risk_analysis.html", {
-                "form": form,
-            })
+            return render_to_response("risk_analysis.html",
+                RequestContext(request, {
+                    "form": form,
+                })
+            )
     else:
         form = forms.RiskForm()
-    return render_to_response("risk.html", {
+    return render_to_response("risk.html", RequestContext(request, {
         "form": form,
-    })
+    }))
 
 @login_required
 def report(request):
-    return render_to_response("report.html", {
-    })
+    return render_to_response("report.html", RequestContext(request, {
+    }))
