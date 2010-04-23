@@ -9,6 +9,7 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ("Richard Crowley", "r@rcrowley.org"),
+    ("Alex King", "alexander.l.king@gmail.com"),
 )
 
 MANAGERS = ADMINS
@@ -58,14 +59,13 @@ SECRET_KEY = "@gx$=_9m6+76ay5_-hvn0m*cd6ei@q-6+d2-xw!xof58q+^n($"
 TEMPLATE_LOADERS = (
     "django.template.loaders.filesystem.load_template_source",
     "django.template.loaders.app_directories.load_template_source",
-#     "django.template.loaders.eggs.load_template_source",
 )
 
 MIDDLEWARE_CLASSES = (
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
 )
 
 ROOT_URLCONF = "hapimoney.urls"
@@ -80,12 +80,12 @@ INSTALLED_APPS = (
     "django.contrib.sessions",
     "django.contrib.sites",
     "django.contrib.admin",
-    "debug_toolbar",
+    # "debug_toolbar",
     "hapimoney.base",
 )
 
 LOGIN_REDIRECT_URL = "/basic"
 
-INTERNAL_IPS = ("127.0.0.1",)
+# INTERNAL_IPS = ("127.0.0.1",)
 
 TEMPLATE_CONTEXT_PROCESSORS = ("django.core.context_processors.auth",)
