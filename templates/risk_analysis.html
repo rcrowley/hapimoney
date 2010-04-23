@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{% block title %}Risk{% endblock %}</h1>
+<p>TODO: Analysis</p>
+<p>{{ form.cleaned_data|pprint }}</p>
+<ul>
+    <li><a href="{% url risk %}">Previous</a></li>
+    <li><a href="{% url report %}">Next</a></li>
+</ul>
+{% endblock %}

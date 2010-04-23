@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{% block title %}Balance Sheet{% endblock %}</h1>
+{% if assets_form.errors %}
+<p>TODO</p>
+{% endif %}
+{% if liabilities_form.errors %}
+<p>TODO</p>
+{% endif %}
+<form method="post" action="{% url balancesheet %}">
+<h2>Assets</h2>
+<table>
+{{ assets_form.as_table }}
+</table>
+<h2>Liabilities</h2>
+<table>
+{{ liabilities_form.as_table }}
+</table>
+<ul>
+    <li><a href="{% url budget %}">Previous</a></li>
+    <li><input type="submit" value="Analyze" /></li>
+</ul>
+</form>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{% block title %}Basics{% endblock %}</h1>
+<p>TODO: Analysis</p>
+<p>{{ form.cleaned_data|pprint }}</p>
+<ul>
+    <li><a href="{% url basic %}">Previous</a></li>
+    <li><a href="{% url budget %}">Next</a></li>
+</ul>
+{% endblock %}

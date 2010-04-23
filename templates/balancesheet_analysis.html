@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{% block title %}Balance Sheet{% endblock %}</h1>
+<p>TODO: Analysis</p>
+<p>{{ assets_form.cleaned_data|pprint }}</p>
+<p>{{ liabilities_form.cleaned_data|pprint }}</p>
+<ul>
+    <li><a href="{% url budget %}">Previous</a></li>
+    <li><a href="{% url risk %}">Next</a></li>
+</ul>
+{% endblock %}

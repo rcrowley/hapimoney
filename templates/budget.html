@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{% block title %}Budget{% endblock %}</h1>
+{% if income_form.errors %}
+<p>TODO</p>
+{% endif %}
+{% if expenses_form.errors %}
+<p>TODO</p>
+{% endif %}
+<form method="post" action="{% url budget %}">
+<h2>Monthly income</h2>
+<table>
+{{ income_form.as_table }}
+</table>
+<h2>Monthly expenses</h2>
+<table>
+{{ expenses_form.as_table }}
+</table>
+<ul>
+    <li><a href="{% url basic %}">Previous</a></li>
+    <li><input type="submit" value="Analyze" /></li>
+</ul>
+</form>
+{% endblock %}

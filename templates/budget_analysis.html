@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{% block title %}Budget{% endblock %}</h1>
+<p>TODO: Analysis</p>
+<p>{{ income_form.cleaned_data|pprint }}</p>
+<p>{{ expenses_form.cleaned_data|pprint }}</p>
+<ul>
+    <li><a href="{% url budget %}">Previous</a></li>
+    <li><a href="{% url balancesheet %}">Next</a></li>
+</ul>
+{% endblock %}
